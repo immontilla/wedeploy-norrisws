@@ -1,0 +1,42 @@
+group = 'foo'
+version = '1.0'
+
+buildscript {
+	ext {
+	  springBootVersion = '1.5.8.RELEASE'
+	}
+	repositories {
+	  mavenLocal()
+          mavenCentral()
+          maven { url "http://repo.spring.io/release" }
+	}
+	dependencies {
+	  classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+sourceCompatibility = 1.8
+
+task run(dependsOn: ':bootRun') {
+  doLast {
+    println 'Boot'
+  }
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "http://repo.spring.io/release" }
+}
+
+dependencies {
+  compile('org.springframework.boot:spring-boot-starter-web')
+  compile('com.github.javafaker:javafaker:0.13')
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.5.1'
+}
